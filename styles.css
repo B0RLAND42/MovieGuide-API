@@ -165,7 +165,7 @@ img {
 
 /* Movie data */
 .info-container {
-  padding: 1.6rem 0;
+  padding: 1.5rem 0;
 }
 
 .movie-poster {
@@ -174,7 +174,7 @@ img {
 }
 
 .movie-poster img {
-  max-width: 300px;
+  max-width: 290px;
   margin: 0 auto;
   border: 4px solid #FFFFFF;
 }
