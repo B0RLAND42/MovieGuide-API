@@ -23,7 +23,7 @@ img {
 .main {
   min-height: 100vh;
   /* background-color: #333333; */
-  background-image: url("/images/clapper.jpg");
+  background-image: url("/images/clapper.webp");
   position: relative;
 }
 
