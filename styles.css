@@ -446,6 +446,10 @@ img {
 
 @media(max-width: 450px) {
 
+  .tmdb-attrib p {
+    line-height: 14px;
+  }
+
   .trailer-btn {
     width: 80%;
     font-size: 1rem;
