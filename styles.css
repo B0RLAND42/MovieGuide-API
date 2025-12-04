@@ -52,7 +52,7 @@ img {
 
 .search-container {
   /* background-color: #545454; */
-  height: 100px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -542,6 +542,10 @@ img {
 
   .trailer-content {
     width: 90%; /* almost full width on mobile */
+  }
+
+  .movie-poster img {
+    max-width: 96%;
   }
 }
 
