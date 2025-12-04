@@ -130,11 +130,14 @@ function displayMovieDetails(tmdb, omdb) {
   const scoreValue = tmdb.vote_average ? tmdb.vote_average.toFixed(1) : "N/A";
 
   // TMDB top 5 cast
-  const cast =
+  const castList =
     tmdb.credits?.cast
       ?.slice(0, 5)
-      .map((c) => `${c.name} as ${c.character}`)
-      .join(", ") || "";
+      .map(
+        (c) =>
+          `<li>${c.name} <span class="cast-role">as ${c.character}</span></li>`
+      )
+      .join("") || "";
 
   // OMDB rating
   const rated = omdb.Rated ? omdb.Rated : "N/A";
@@ -171,7 +174,18 @@ function displayMovieDetails(tmdb, omdb) {
       ${tagline ? `<p class="tagline">${tagline}</p>` : ""}
       
       <p class="plot"><b>Plot:</b> ${tmdb.overview}</p>
-      ${cast ? `<p class="cast"><b>Cast:</b> ${cast}</p>` : ""}
+      ${castList ? `
+  <div class="cast">
+    <div class="cast-header">
+      <h4>Cast</h4>
+      <button class="view-cast-btn">View Cast</button>
+    </div>
+
+    <ul class="cast-list hidden">
+      ${castList}
+    </ul>
+  </div>
+` : ""}
 
       ${
         trailer
@@ -185,28 +199,28 @@ function displayMovieDetails(tmdb, omdb) {
   // TRAILER MODAL LOGIC
   // -----------------------------
   if (trailer) {
-  const trailerBtn = document.getElementById("trailer-btn");
-  const trailerModal = document.getElementById("trailer-modal");
-  const trailerClose = document.getElementById("trailer-close");
-  const trailerIframe = document.getElementById("trailer-iframe");
+    const trailerBtn = document.getElementById("trailer-btn");
+    const trailerModal = document.getElementById("trailer-modal");
+    const trailerClose = document.getElementById("trailer-close");
+    const trailerIframe = document.getElementById("trailer-iframe");
 
-  trailerBtn.addEventListener("click", () => {
-    trailerIframe.src = `https://www.youtube.com/embed/${trailer.key}?autoplay=1`;
-    trailerModal.classList.remove("hide");
-  });
+    trailerBtn.addEventListener("click", () => {
+      trailerIframe.src = `https://www.youtube.com/embed/${trailer.key}?autoplay=1`;
+      trailerModal.classList.remove("hide");
+    });
 
-  trailerClose.addEventListener("click", () => {
-    trailerIframe.src = "";
-    trailerModal.classList.add("hide");
-  });
-
-  trailerModal.addEventListener("click", (e) => {
-    if (e.target === trailerModal) {
+    trailerClose.addEventListener("click", () => {
       trailerIframe.src = "";
       trailerModal.classList.add("hide");
-    }
-  });
-}
+    });
+
+    trailerModal.addEventListener("click", (e) => {
+      if (e.target === trailerModal) {
+        trailerIframe.src = "";
+        trailerModal.classList.add("hide");
+      }
+    });
+  }
 }
 
 // -----------------------------

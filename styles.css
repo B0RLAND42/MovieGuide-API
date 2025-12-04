@@ -243,6 +243,37 @@ img {
   font-size: 0.9rem;
 }
 
+.cast {
+  margin-top: 1.5rem;
+  text-align: left;
+  position: relative;
+  z-index: 2;
+}
+
+.cast h4 {
+  font-size: 1.2rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.cast-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.cast-list li {
+  color: #fff;
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+}
+
+.cast-list li .cast-role {
+  color: var(--accent);
+  opacity: 0.9;
+  margin-left: 0.4rem;
+}
+
 .movie-info .tagline {
   font-style: italic;
   font-size: 1rem;
