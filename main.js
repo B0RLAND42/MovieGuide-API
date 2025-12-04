@@ -160,7 +160,7 @@ function displayMovieDetails(tmdb, omdb) {
       <h3 class="movie-title">${tmdb.title}</h3>
 
       <ul class="movie-data">
-        <li class="year">Year: ${year}</li>
+        <li class="year"><b>Year:</b> ${year}</li>
         <li class="released">${runtime}</li>
         <li class="rated">Rating: ${rated}</li>
         <li class="score ${scoreClass}">Score: ${scoreValue}</li>

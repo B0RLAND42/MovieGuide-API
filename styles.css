@@ -97,10 +97,9 @@ img {
 
 .search-bar .form-control {
   padding: 0.6rem 1.4rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
   border: none;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px; 
+  border-radius: 3px; 
   outline: none;
   color: var(--gray);
   width: 350px;
@@ -192,7 +191,6 @@ img {
   position: relative;
   text-align: center;
   color: #FFFFFF;
-  padding-top: 3rem !important;
   z-index: 1;
 }
 
@@ -230,8 +228,9 @@ img {
 .movie-info .genre {
   background-color: var(--gray);
   display: inline-block;
-  padding: 0.5rem;
+  padding: 0.5rem 0.8rem;
   border-radius: 3px;
+  text-shadow: 2px 2px 3px var(--dark);
 }
 
 .movie-info .plot {
@@ -249,7 +248,7 @@ img {
   font-size: 1rem;
   color: var(--accent); /* goldenrod */
   text-align: left;
-  margin: 0.5rem 0 1rem 0;
+  margin: 1rem auto;
   opacity: 0.85;
   letter-spacing: 0.5px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
@@ -322,6 +321,7 @@ img {
   margin-right: 0.5rem;
   /* default background color */
   background-color: #444;
+  text-shadow: 2px 2px 3px var(--dark);
 }
 
 /* Dynamic coloring via JS class */
@@ -350,6 +350,7 @@ img {
   background-color: var(--accent);
   color: #000;
   font-weight: 600;
+  font-family: 'Poppins';
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
   text-decoration: none;
@@ -429,18 +430,20 @@ img {
   .movie-data {
     flex-direction: column;
     align-items: center; /* centers children horizontally */
+    justify-content: center;
     gap: 0.6rem; /* spacing between pills */
     padding: 0.5rem 0;
   }
 
   .movie-data li {
-    margin: 0; /* reset default margin */
-    padding: 0.5rem 0.8rem;
-    border-radius: 6px;
-    font-weight: 600;
-    min-width: 100px; /* optional: ensures consistent pill width */
+    display: block;           /* ensures inline-block pills center */
     text-align: center;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.3); /* subtle cinematic pop */
+    margin: 0;                /* reset desktop horizontal margin */
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    min-width: 160px;         /* optional: consistent pill width */
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    font-weight: 600;
   }
 
   /* Keep dynamic score coloring */
@@ -452,14 +455,20 @@ img {
   .movie-data li.score,
   .movie-data li.rated,
   .movie-data li.year,
-  .movie-data li.released {
-    margin-right: 0;
+  .movie-data li.released,
+  .movie-data li.genre {
+    margin: 0; 
+    text-align: center;
   }
 
   /* Rated pill color tweak for mobile for contrast */
   .movie-data li.rated {
     background-color: var(--accent);
     color: #000;
+  }
+
+  .movie-info .tagline {
+    margin: 1rem auto;
   }
 
   .movielogo {
@@ -492,7 +501,8 @@ img {
     flex-direction: column;
   }
   .movie-data li:nth-child(2) {
-    margin: 0.8rem 0;
+    margin: 0;
+    padding: 0;
   }
 
   .trailer-content {
