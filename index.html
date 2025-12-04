@@ -7,11 +7,10 @@
   <title>Movie Guide API</title>
 
   <!-- Font-Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
   <!-- CSS -->
   <link rel="stylesheet" href="styles.css">
-
 </head>
 <body>
 
@@ -28,52 +27,25 @@
     <div class="search-container">
       <div class="search-bar">
         <h3>Find Your Movie:</h3>
-        <input type="text" class="form-control" placeholder="Movie Title.." id="search-box" onkeyup="findMovies()" onClick = "findMovies()">
 
-        <div class="search-bar-list" id="search-bar-list">
-          <!-- <div class="search-bar-thumb">
-            <div class="poster-thumb">
-              <img src="./images/ghoulies.jpg">
-            </div>
-            <div class="search-movie-title">
-              <h3>Movie Title</h3>
-              <p>Year</p>
-            </div>
-          </div> -->
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Movie Title..." 
+          id="search-box">
 
-        </div>
+        <div class="search-bar-list hide-search-bar-list" id="search-bar-list"></div>
       </div>
     </div>
 
     <div class="container">
       <div class="info-container">
-        <div class="info-layout" id="info-layout">
-          <!-- <div class="movie-poster">
-            <img src="./images/ghoulies.jpg" alt="Movie poster">
-          </div>
-          <div class="movie-info">
-            <h3 class="movie-title">Movie Title</h3>
-            <ul class="movie-data">
-              <li class="year">Year:</li>
-              <li class="rated">Rating:</li>
-              <li class="released">Released:</li>
-            </ul>
-            <p class="genre"><b>Genre:</b>genre</p>
-            <p class="plot"><b>Plot:</b>plot</p>
-          </div> -->
-
-        </div>
-
+        <div class="info-layout" id="info-layout"></div>
       </div>
-
     </div>
 
   </div>
-  
 
-
-
-  <!-- JavaScript -->
   <script src="main.js"></script>
 </body>
 </html>

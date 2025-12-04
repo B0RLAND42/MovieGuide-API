@@ -1,5 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald&family=Poppins&display=swap');
+
+:root {
+  --accent: goldenrod;
+  --gray: #717171;
+  --dark: #222;
+}
 
 * {
   padding: 0;
@@ -68,7 +73,7 @@ img {
 }
 
 .movielogo p span {
-  color:goldenrod;
+  color: var(--accent);
 }
 
 .search-bar {
@@ -96,7 +101,7 @@ img {
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px; 
   outline: none;
-  color: #717171; 
+  color: var(--gray);
   width: 350px;
 }
 
@@ -106,10 +111,11 @@ img {
   top: 100%;
   max-height: 500px; 
   overflow-y: scroll;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 .search-bar-list .search-bar-thumb {
-  background-color: #717171;
+  background-color: var(--gray);
   padding: 0.5rem;
   border-bottom: 1px solid #333333;
   width: calc(350px - 8px);
@@ -119,7 +125,7 @@ img {
 }
 
 .search-bar-list .search-bar-thumb:hover {
-  background-color: #222222;
+  background-color: var(--dark);
 }
 
 .search-bar-thumb {
@@ -153,7 +159,7 @@ img {
 }
 
 .search-bar-list::-webkit-scrollbar-thumb {
-  background-color:goldenrod;
+  background-color: var(--accent);
   outline: none;
   border-radius: 10px;
 }
@@ -189,7 +195,7 @@ img {
 
 .movie-title {
   font-size: 2rem;
-  color:goldenrod;
+  color: var(--accent);
 }
 
 .movie-data {
@@ -205,7 +211,7 @@ img {
 }
 
 .movie-info .rated {
-  background-color:goldenrod;
+  background-color: var(--accent);
   padding: 0.4rem;
   margin: 0 0.4rem;
   border-radius: 3px;
@@ -218,7 +224,7 @@ img {
 }
 
 .movie-info .genre {
-  background-color: #717171;
+  background-color: var(--gray);
   display: inline-block;
   padding: 0.5rem;
   border-radius: 3px;
