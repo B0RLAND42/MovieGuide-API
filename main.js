@@ -173,7 +173,7 @@ function displayMovieDetails(tmdb, omdb) {
 
       ${tagline ? `<p class="tagline">${tagline}</p>` : ""}
       
-      <p class="plot"><b>Plot:</b> ${tmdb.overview}</p>
+      <p class="plot"> ${tmdb.overview}</p>
       ${
         castList
           ? `

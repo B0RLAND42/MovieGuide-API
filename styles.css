@@ -340,8 +340,9 @@ img {
   padding: 0.4rem 0.6rem;
   border-radius: 3px;
   font-weight: 600;
-  color: #000; /* black text over golden background */
+  color: #FFF;
   margin-right: 0.5rem;
+  text-shadow: 2px 2px 3px var(--dark);
 }
 
 .movie-data li.score {
@@ -352,6 +353,14 @@ img {
   margin-right: 0.5rem;
   /* default background color */
   background-color: #444;
+  text-shadow: 2px 2px 3px var(--dark);
+}
+
+.movie-data li.year {
+  
+  padding: 0.4rem;
+  
+  border-radius: 3px;
   text-shadow: 2px 2px 3px var(--dark);
 }
 
@@ -492,14 +501,8 @@ img {
   .movie-data li.year,
   .movie-data li.released,
   .movie-data li.genre {
-    margin: 0; 
+    margin: 0;
     text-align: center;
-  }
-
-  /* Rated pill color tweak for mobile for contrast */
-  .movie-data li.rated {
-    background-color: var(--accent);
-    color: #000;
   }
 
   .movie-info .tagline {
