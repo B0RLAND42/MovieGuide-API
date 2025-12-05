@@ -198,6 +198,12 @@ img {
   z-index: 1;
 }
 
+.movie-info-horizontal {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
 .movie-title {
   font-size: 2rem;
   color: var(--accent);
@@ -218,7 +224,6 @@ img {
 .movie-info .rated {
   background-color: var(--accent);
   padding: 0.4rem;
-  margin: 0 0.4rem;
   border-radius: 3px;
   font-weight: 600;
 }
@@ -226,7 +231,6 @@ img {
 .movie-info .released {
   font-size: 0.9rem;
   opacity: 0.9;
-  margin: 0 0.4rem;
 }
 
 .movie-info .genre {
@@ -469,6 +473,10 @@ img {
     font-size: 1rem;
   }
 
+  .movie-info-horizontal {
+    display: block;
+  }
+
   /* Center the tagline */
   .movie-info .tagline {
     text-align: center;
@@ -542,10 +550,6 @@ img {
   }
   .movie-data {
     flex-direction: column;
-  }
-  .movie-data li:nth-child(2) {
-    margin: 0;
-    padding: 0;
   }
 
   .trailer-content {

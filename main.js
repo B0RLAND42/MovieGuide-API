@@ -183,10 +183,13 @@ function displayMovieDetails(tmdb, omdb) {
 
     <div class="movie-info">
       <h3 class="movie-title">${tmdb.title}</h3>
+      <div class="movie-info-horizontal">
+        <p class="year">${year}</p>
+        <p class="released">${runtime}</p>
+      </div>
 
       <ul class="movie-data">
-        <li class="year"><b>Year:</b> ${year}</li>
-        <li class="released">${runtime}</li>
+        
         <li class="rated">Rating: ${rated}</li>
         <li class="score ${scoreClass}">Score: ${scoreValue}</li>
       </ul>
