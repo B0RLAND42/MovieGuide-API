@@ -105,7 +105,7 @@ async function fetchGenres() {
   try {
     const res = await fetch(url);
     const data = await res.json();
-    genres = data.genres;  // Save the genres globally
+    genres = data.genres; // Save the genres globally
   } catch (err) {
     console.error("Error fetching genres:", err);
   }
@@ -115,7 +115,7 @@ async function fetchGenres() {
 async function fetchRandomMovie() {
   // Ensure genres are loaded first
   if (genres.length === 0) {
-    await fetchGenres();  // Fetch genres if they haven't been fetched yet
+    await fetchGenres(); // Fetch genres if they haven't been fetched yet
   }
 
   // Get a random genre (pick from available genres)
@@ -133,10 +133,13 @@ async function fetchRandomMovie() {
 
     if (data.results && data.results.length > 0) {
       // Pick a random movie from the results
-      const randomMovie = data.results[Math.floor(Math.random() * data.results.length)];
+      const randomMovie =
+        data.results[Math.floor(Math.random() * data.results.length)];
       loadMovieDetails(randomMovie.id); // Display movie details
     } else {
-      console.log("No movies found for the selected genre and year, trying again...");
+      console.log(
+        "No movies found for the selected genre and year, trying again..."
+      );
       fetchRandomMovie(); // Retry if no movies were found
     }
   } catch (err) {
@@ -233,19 +236,23 @@ async function loadMovieDetails(movieId) {
 function updateBackgroundImage(imagePath) {
   if (imagePath) {
     const imageUrl = `${TMDB_IMAGE}${imagePath}`;
-    const img = new Image();  // Create a new image object
+    const img = new Image(); // Create a new image object
 
     // Wait for the image to load
     img.onload = function () {
       // Once the image is loaded, apply the background image
-      document.querySelector('.main').style.backgroundImage = `url('${imageUrl}')`;
+      document.querySelector(
+        ".main"
+      ).style.backgroundImage = `url('${imageUrl}')`;
     };
 
     // Start loading the image
     img.src = imageUrl;
   } else {
     // Fallback to the default background image if no movie backdrop is available
-    document.querySelector('.main').style.backgroundImage = `url('/images/clapper.webp')`;
+    document.querySelector(
+      ".main"
+    ).style.backgroundImage = `url('/images/clapper.webp')`;
   }
 }
 
@@ -359,10 +366,10 @@ function displayMovieDetails(tmdb, omdb) {
 }
 
 // Add event listener for the "Random Movie Night" button
-document.getElementById('random-movie-btn').addEventListener('click', () => {
+document.getElementById("random-movie-btn").addEventListener("click", () => {
   // Hide the popular movies section
   hidePopularMovies();
-  
+
   // Fetch a random movie from TMDB
   fetchRandomMovie();
 });
