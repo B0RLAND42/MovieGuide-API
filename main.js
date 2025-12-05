@@ -102,6 +102,9 @@ async function loadMovieDetails(movieId) {
     );
     const tmdbData = await tmdbRes.json();
 
+    // Update the background image with the movie's backdrop or poster
+    updateBackgroundImage(tmdbData.backdrop_path || tmdbData.poster_path);
+
     // OMDB fetch using title + year
     const title = encodeURIComponent(tmdbData.title);
     const year = tmdbData.release_date?.slice(0, 4) || "";
@@ -113,6 +116,25 @@ async function loadMovieDetails(movieId) {
     displayMovieDetails(tmdbData, omdbData);
   } catch (err) {
     console.error(err);
+  }
+}
+
+function updateBackgroundImage(imagePath) {
+  if (imagePath) {
+    const imageUrl = `${TMDB_IMAGE}${imagePath}`;
+    const img = new Image();  // Create a new image object
+
+    // Wait for the image to load
+    img.onload = function () {
+      // Once the image is loaded, apply the background image
+      document.querySelector('.main').style.backgroundImage = `url('${imageUrl}')`;
+    };
+
+    // Start loading the image
+    img.src = imageUrl;
+  } else {
+    // Fallback to the default background image if no movie backdrop is available
+    document.querySelector('.main').style.backgroundImage = `url('/images/clapper.webp')`;
   }
 }
 
