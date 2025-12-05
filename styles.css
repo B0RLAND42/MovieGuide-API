@@ -454,7 +454,57 @@ img {
   z-index: 1;
 }
 
+.popular-movies-container {
+  position: relative;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.4); /* Transparent background */
+  border-radius: 10px;
+  margin-top: 20px;
+  display: none; /* Hidden by default */
+  z-index: 10;
+}
+
+.popular-movies-container h3 {
+  color: #fff;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.popular-movies-list {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+}
+
+.popular-movies-item {
+  background-color: rgba(255, 255, 255, 0.1); /* Light background for each item */
+  border-radius: 10px;
+  padding: 10px;
+  max-width: 150px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.popular-movies-item img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.popular-movies-item h4 {
+  margin-top: 10px;
+  color: #fff;
+  font-size: 1rem;
+}
+
 @media(max-width: 450px) {
+  .popular-movies-item {
+    max-width: 90%;
+  }
+
+  .popular-movies-list {
+    flex-direction: column;
+    align-items: center;
+  }
 
   .tmdb-attrib p {
     line-height: 14px;

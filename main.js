@@ -92,6 +92,61 @@ function displayMovieList(results) {
 }
 
 // -----------------------------
+// FETCH POPULAR MOVIES
+// -----------------------------
+async function fetchPopularMovies() {
+  const url = `https://api.themoviedb.org/3/movie/popular?api_key=${TMDB_KEY}&language=en-US&page=1`;
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (data.results && data.results.length > 0) {
+      displayPopularMovies(data.results.slice(0, 5)); // Show top 5 movies
+    }
+  } catch (err) {
+    console.error("Error fetching popular movies:", err);
+  }
+}
+
+// -----------------------------
+// RENDER POPULAR MOVIES
+// -----------------------------
+function displayPopularMovies(movies) {
+  const popularMoviesList = document.getElementById("popular-movies-list");
+
+  // Clear any existing content
+  popularMoviesList.innerHTML = "";
+
+  movies.forEach((movie) => {
+    const poster = movie.poster_path
+      ? `${TMDB_IMAGE}${movie.poster_path}`
+      : "./images/clapperboard.png";
+
+    const item = document.createElement("div");
+    item.classList.add("popular-movies-item");
+    item.dataset.id = movie.id;
+
+    item.innerHTML = `
+      <img src="${poster}" alt="${movie.title} Poster">
+      <h4>${movie.title}</h4>
+    `;
+
+    item.addEventListener("click", () => {
+      // Hide popular movies section
+      document.getElementById("popular-movies-container").style.display = "none";
+      // Load movie details
+      loadMovieDetails(movie.id);
+    });
+
+    popularMoviesList.appendChild(item);
+  });
+
+  // Show the popular movies section
+  document.getElementById("popular-movies-container").style.display = "block";
+}
+
+// -----------------------------
 // FETCH MOVIE DETAILS FROM TMDB
 // -----------------------------
 async function loadMovieDetails(movieId) {
@@ -254,4 +309,9 @@ window.addEventListener("click", (e) => {
   if (e.target !== searchBox) {
     searchBarList.classList.add("hide-search-bar-list");
   }
+});
+
+// Initialize the popular movies section
+document.addEventListener("DOMContentLoaded", () => {
+  fetchPopularMovies();
 });
