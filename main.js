@@ -96,6 +96,54 @@ function displayMovieList(results) {
   });
 }
 
+// Fetch all genres from TMDB (only once, then cached)
+let genres = [];
+
+async function fetchGenres() {
+  const url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${TMDB_KEY}&language=en-US`;
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    genres = data.genres;  // Save the genres globally
+  } catch (err) {
+    console.error("Error fetching genres:", err);
+  }
+}
+
+// Function to fetch a random movie from a random genre and year
+async function fetchRandomMovie() {
+  // Ensure genres are loaded first
+  if (genres.length === 0) {
+    await fetchGenres();  // Fetch genres if they haven't been fetched yet
+  }
+
+  // Get a random genre (pick from available genres)
+  const randomGenre = genres[Math.floor(Math.random() * genres.length)];
+
+  // Get a random year between 1960 and 2025
+  const randomYear = Math.floor(Math.random() * (2025 - 1960 + 1)) + 1960;
+
+  // Fetch movies based on the random genre and random year
+  const url = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_KEY}&language=en-US&year=${randomYear}&with_genres=${randomGenre.id}&sort_by=popularity.desc&page=1`;
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (data.results && data.results.length > 0) {
+      // Pick a random movie from the results
+      const randomMovie = data.results[Math.floor(Math.random() * data.results.length)];
+      loadMovieDetails(randomMovie.id); // Display movie details
+    } else {
+      console.log("No movies found for the selected genre and year, trying again...");
+      fetchRandomMovie(); // Retry if no movies were found
+    }
+  } catch (err) {
+    console.error("Error fetching random movie:", err);
+  }
+}
+
 // -----------------------------
 // FETCH POPULAR MOVIES
 // -----------------------------
@@ -310,7 +358,14 @@ function displayMovieDetails(tmdb, omdb) {
   }
 }
 
-
+// Add event listener for the "Random Movie Night" button
+document.getElementById('random-movie-btn').addEventListener('click', () => {
+  // Hide the popular movies section
+  hidePopularMovies();
+  
+  // Fetch a random movie from TMDB
+  fetchRandomMovie();
+});
 
 // -----------------------------
 // CLICK OUTSIDE = CLOSE SEARCH
