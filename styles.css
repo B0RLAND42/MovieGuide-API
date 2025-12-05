@@ -52,6 +52,8 @@ img {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
+  display: flex;
+  justify-content: center;
 }
 
 .search-container {
@@ -75,10 +77,15 @@ img {
   color: #FFFFFF;
   font-weight: bold;
   text-align: center;
+  display: inline;
 }
 
 .movielogo p span {
   color: var(--accent);
+}
+
+.movielogo .logo-link {
+  text-decoration: none; /* Remove the default underline */
 }
 
 .search-bar {
@@ -87,7 +94,7 @@ img {
   justify-content: center;
   flex-direction: column;
   position: relative;
-  z-index: 2;
+  z-index: 11;
 }
 
 .search-bar h3 {

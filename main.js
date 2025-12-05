@@ -10,6 +10,11 @@ const searchBox = document.getElementById("search-box");
 const searchBarList = document.getElementById("search-bar-list");
 const infoLayout = document.getElementById("info-layout");
 
+// Hide the popular movies list when a movie is selected (from search or popular list)
+function hidePopularMovies() {
+  document.getElementById("popular-movies-container").style.display = "none";
+}
+
 // -----------------------------
 // SEARCH (debounced)
 // -----------------------------
@@ -134,7 +139,7 @@ function displayPopularMovies(movies) {
 
     item.addEventListener("click", () => {
       // Hide popular movies section
-      document.getElementById("popular-movies-container").style.display = "none";
+      hidePopularMovies();
       // Load movie details
       loadMovieDetails(movie.id);
     });
@@ -151,6 +156,9 @@ function displayPopularMovies(movies) {
 // -----------------------------
 async function loadMovieDetails(movieId) {
   try {
+    // Hide popular movies section when a movie is selected
+    hidePopularMovies();
+
     // TMDB fetch
     const tmdbRes = await fetch(
       `https://api.themoviedb.org/3/movie/${movieId}?api_key=${TMDB_KEY}&append_to_response=videos,credits`
@@ -301,6 +309,8 @@ function displayMovieDetails(tmdb, omdb) {
     });
   }
 }
+
+
 
 // -----------------------------
 // CLICK OUTSIDE = CLOSE SEARCH
