@@ -186,6 +186,7 @@ function displayMovieDetails(tmdb, omdb) {
       <div class="movie-info-horizontal">
         <p class="year">${year}</p>
         <p class="released">${runtime}</p>
+        <p class="genre">${genres}</p>
       </div>
 
       <ul class="movie-data">
@@ -193,8 +194,6 @@ function displayMovieDetails(tmdb, omdb) {
         <li class="rated">Rating: ${rated}</li>
         <li class="score ${scoreClass}">Score: ${scoreValue}</li>
       </ul>
-
-      <p class="genre"><b>Genre:</b> ${genres}</p>
 
       ${tagline ? `<p class="tagline">${tagline}</p>` : ""}
       
