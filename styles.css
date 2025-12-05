@@ -275,11 +275,12 @@ img {
 }
 
 .movie-info .tagline {
+  max-width: 400px;
   font-style: italic;
   font-size: 1rem;
   color: var(--accent); /* goldenrod */
   text-align: left;
-  margin: 1rem auto;
+  margin: 1rem 0;
   opacity: 0.85;
   letter-spacing: 0.5px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
