@@ -10,6 +10,15 @@ const searchBox = document.getElementById("search-box");
 const searchBarList = document.getElementById("search-bar-list");
 const infoLayout = document.getElementById("info-layout");
 
+const toggleBtn = document.getElementById("popular-toggle");
+const toggleIcon = document.getElementById("toggle-icon");
+const popularList = document.getElementById("popular-movies-list");
+
+toggleBtn.addEventListener("click", () => {
+  popularList.classList.toggle("collapsed");
+  toggleIcon.classList.toggle("rotated");
+});
+
 // Hide the popular movies list when a movie is selected (from search or popular list)
 function hidePopularMovies() {
   document.getElementById("popular-movies-container").style.display = "none";

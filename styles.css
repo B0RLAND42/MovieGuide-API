@@ -26,7 +26,7 @@ img {
 }
 
 .main {
-  min-height: 100vh;
+  min-height: 110vh;
   /* background-color: #333333; */
   background-image: url("/images/clapper.webp");
   background-size: cover;   /* Ensures the image covers the full container */
@@ -493,7 +493,6 @@ img {
 
 .popular-movies-container h3 {
   color: #fff;
-  margin-bottom: 15px;
   text-align: center;
 }
 
@@ -501,12 +500,16 @@ img {
   display: flex;
   justify-content: center;
   gap: 35px;
+  overflow: hidden;
+  max-height: 300px;
+  transition: max-height 0.35s ease;
 }
 
 .popular-movies-item {
   background-color: rgba(255, 255, 255, 0.1); /* Light background for each item */
   border-radius: 10px;
   padding: 10px;
+  margin-top: 15px;
   max-width: 150px;
   text-align: center;
   cursor: pointer;
@@ -523,6 +526,27 @@ img {
   font-size: 1rem;
 }
 
+#toggle-icon {
+  transition: transform 0.35s ease;
+}
+
+#toggle-icon.rotated {
+  transform: rotate(180deg);
+}
+
+.popular-movies-list.collapsed {
+  max-height: 0;
+}
+
+/* Title cursor change */
+.collapsible-title {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 @media(max-width: 450px) {
   .popular-movies-item {
     max-width: 90%;
@@ -531,6 +555,7 @@ img {
   .popular-movies-list {
     flex-direction: column;
     align-items: center;
+    max-height: 500px;
   }
 
   .tmdb-attrib p {
