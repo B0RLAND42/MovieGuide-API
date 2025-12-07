@@ -286,11 +286,95 @@ async function fetchBest90sMovies() {
     // Sort by weighted score
     const topMovies = weighted
       .sort((a, b) => b.weightedScore - a.weightedScore)
-      .slice(0, 6); // top 12 movies
+      .slice(0, 6); // top 6 movies
 
     displaySectionMovies("best-comedy-list", topMovies);
   } catch (err) {
     console.error("Error fetching Best Comedies:", err);
+  }
+}
+
+// FETCH CLASSIC COMEDY HITS
+async function fetchClassicComedyHits() {
+  const url = `
+    https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_KEY}
+    &language=en-US
+    &with_genres=35
+    &without_genres=28,12,878,14,27
+    &primary_release_date.gte=1980-01-01
+    &primary_release_date.lte=2000-12-31
+    &vote_count.gte=2000
+    &vote_average.gte=7
+    &with_original_language=en
+    &region=US
+    &sort_by=popularity.asc
+  `.replace(/\s+/g, '');
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+
+    const weighted = data.results.map(m => {
+      const rating = m.vote_average || 0;
+      const votes  = m.vote_count || 0;
+      const pop    = m.popularity || 0;
+
+      return {
+        ...m,
+        weightedScore: (rating * 2) + (votes / 600) + (pop / 20)
+      };
+    });
+
+    const top18 = weighted
+      .sort((a, b) => b.weightedScore - a.weightedScore)
+      .slice(0, 6);
+
+    displaySectionMovies("classic-comedy-list", top18);
+  } catch (err) {
+    console.error("Error fetching classic comedies:", err);
+  }
+}
+
+// FETCH CLASSIC 80s HORROR MOVIES
+async function fetch80sHorrorClassics() {
+  const url = `
+    https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_KEY}
+    &language=en-US
+    &with_genres=27
+    &without_genres=28,12,878,14
+    &with_original_language=en
+    &primary_release_date.gte=1980-01-01
+    &primary_release_date.lte=1989-12-31
+    &vote_count.gte=300
+    &sort_by=vote_average.desc
+  `.replace(/\s+/g, '');
+
+  try {
+    const res = await fetch(url);
+    let data = await res.json();
+
+    // Keep movies where Horror is the **first** genre listed (ensures true horror)
+    const filtered = data.results.filter(m =>
+      m.genre_ids && m.genre_ids[0] === 27
+    );
+
+    // Weighted ranking: helps push true classics higher
+    const weighted = filtered.map(m => ({
+      ...m,
+      weightedScore:
+        (m.vote_average * 2) +
+        (m.vote_count / 300) +
+        (m.popularity / 20)
+    }));
+
+    const top = weighted
+      .sort((a, b) => b.weightedScore - a.weightedScore)
+      .slice(0, 6);
+
+    displaySectionMovies("horror-80s-list", top);
+
+  } catch (err) {
+    console.error("Error fetching 80s horror classics:", err);
   }
 }
 
@@ -500,4 +584,6 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchBest2025();
   fetchPopular80sMovies();
   fetchBest90sMovies();
+  fetchClassicComedyHits();
+  fetch80sHorrorClassics();
 });

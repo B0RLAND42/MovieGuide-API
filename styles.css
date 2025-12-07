@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald&family=Poppins&family=Creepster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald&family=Poppins&family=Limelight&family=Eater&family=Creepster&family=Instrument+Serif:ital@0;1&family=Russo+One&display=swap');
 
 :root {
   --accent: goldenrod;
@@ -499,6 +499,7 @@ img {
 .popular-movies-container h3 {
   color: #FFF;
   text-align: center;
+  font-family: 'Poppins';
 }
 
 .popular-movies-list {
@@ -506,7 +507,6 @@ img {
   justify-content: center;
   flex-wrap: wrap;
   gap: 35px;
-  padding-bottom: 6px;
   overflow: hidden;
   max-height: 300px;
   transition: max-height 0.35s ease;
@@ -516,7 +516,7 @@ img {
   background-color: rgba(255, 255, 255, 0.1); /* Light background for each item */
   border-radius: 10px;
   padding: 5px;
-  margin-top: 15px;
+  margin: 15px 0;
   max-width: 150px;
   text-align: center;
   cursor: pointer;
@@ -557,11 +557,35 @@ img {
   align-items: center;
   justify-content: center;
   gap: 1rem;
+
+  &:hover {
+    text-shadow: 0 0 4px #FFF;
+  }
 }
 
 .popular-movies-container .horror-font {
   font-family: 'Creepster';
   font-weight: normal;
+}
+
+.popular-movies-container .ninety-font {
+  font-family: 'Instrument Serif';
+}
+
+.popular-movies-container .eighty-font {
+  font-family: 'Russo One';
+  font-weight: normal;
+}
+
+.popular-movies-container .now-font {
+  font-family: 'Limelight';
+  font-weight: normal;
+}
+
+.popular-movies-container .horror-two-font {
+  font-family: 'Eater';
+  font-weight: normal;
+  font-size: 0.8rem;
 }
 
 /* Spinner inside the button */
