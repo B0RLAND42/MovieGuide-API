@@ -152,9 +152,9 @@ async function fetchRandomMovie() {
 
     if (data.results && data.results.length > 0) {
       const movie = data.results[Math.floor(Math.random() * data.results.length)];
-      loadMovieDetails(movie.id);
+      return movie.id; // return ID instead of calling loadMovieDetails
     } else {
-      fetchRandomMovie();
+      return await fetchRandomMovie(); // try again recursively
     }
   } catch (err) {
     console.error("Error fetching random movie:", err);
@@ -432,8 +432,11 @@ document.getElementById("random-movie-btn").addEventListener("click", async () =
 
   hidePopularMovies();
 
-  // Fetch movie
-  await fetchRandomMovie();
+  // Get a random movie ID
+  const movieId = await fetchRandomMovie();
+
+  // Load details
+  await loadMovieDetails(movieId); // waits until infoLayout is fully updated
 
   // Hide spinner
   btn.classList.remove("loading");
