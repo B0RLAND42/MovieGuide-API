@@ -254,7 +254,7 @@ async function fetchPopular80sMovies() {
   }
 }
 
-// FETCH BEST COMEDIES
+// FETCH BEST 90s MOVIES
 async function fetchBest90sMovies() {
   const url = `
     https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_KEY}
