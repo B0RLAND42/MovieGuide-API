@@ -509,9 +509,9 @@ img {
   text-align: center;
   font-family: 'Poppins';
   
-  letter-spacing: 1.5px;
+  /* letter-spacing: 1.5px;
   text-shadow: 0 0 12px rgba(0,0,0,0.6);
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.2rem; */
 }
 
 .popular-movies-list {
