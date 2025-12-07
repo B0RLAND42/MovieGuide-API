@@ -254,6 +254,46 @@ async function fetchPopular80sMovies() {
   }
 }
 
+// FETCH BEST COMEDIES
+async function fetchBest90sMovies() {
+  const url = `
+    https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_KEY}
+    &language=en-US                                     
+    &primary_release_date.gte=1990-01-01                 
+    &primary_release_date.lte=1999-12-31                 
+    &vote_count.gte=1500                                
+    &vote_average.gte=7.0                                
+    &region=US                                           
+    &sort_by=popularity.desc                            
+  `.replace(/\s+/g, '');
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+
+    // Add weighted ranking to improve accuracy
+    const weighted = data.results.map(movie => {
+      const rating = movie.vote_average || 0;
+      const votes = movie.vote_count || 0;
+      const pop   = movie.popularity || 0;
+
+      return {
+        ...movie,
+        weightedScore: (rating * 2) + (votes / 500) + (pop / 20)
+      };
+    });
+
+    // Sort by weighted score
+    const topMovies = weighted
+      .sort((a, b) => b.weightedScore - a.weightedScore)
+      .slice(0, 6); // top 12 movies
+
+    displaySectionMovies("best-comedy-list", topMovies);
+  } catch (err) {
+    console.error("Error fetching Best Comedies:", err);
+  }
+}
+
 // -----------------------------
 // RENDER ANY SECTION LIST
 // -----------------------------
@@ -459,4 +499,5 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchNowPlaying();
   fetchBest2025();
   fetchPopular80sMovies();
+  fetchBest90sMovies();
 });
