@@ -520,7 +520,7 @@ img {
   flex-wrap: wrap;
   gap: 35px;
   overflow: hidden;
-  max-height: 300px;
+  max-height: 1300px;
   transition: max-height 0.5s ease-in-out;
 }
 
