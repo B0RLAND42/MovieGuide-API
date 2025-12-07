@@ -594,13 +594,21 @@ img {
 
 @media(max-width: 450px) {
   .popular-movies-item {
-    max-width: 90%;
+    flex: 0 0 auto;          /* make items stay their size */
+    margin-right: 12px;      /* spacing between items */
   }
 
   .popular-movies-list {
-    flex-direction: column;
-    align-items: center;
-    max-height: 500px;
+    display: flex;           /* arrange items in a row */
+    flex-wrap: nowrap;       /* prevent wrapping */
+    overflow-x: auto;        /* enable horizontal scroll */
+    -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+    padding-bottom: 10px;    /* some spacing for scroll */
+    justify-content: flex-start; /* change from center to start */
+  }
+
+  .popular-movies-list::-webkit-scrollbar {
+    display: none;           /* hide scrollbar in WebKit browsers */
   }
 
   .tmdb-attrib p {
