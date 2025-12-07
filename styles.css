@@ -488,7 +488,7 @@ img {
 
 .popular-movies-container {
   position: relative;
-  padding: 35px 30px;
+  padding: 25px 30px;
   background: rgba(255,255,255,0.05);
   border-radius: 18px;
   backdrop-filter: blur(12px);
@@ -520,7 +520,7 @@ img {
   flex-wrap: wrap;
   gap: 35px;
   overflow: hidden;
-  max-height: 1200px;
+  max-height: 300px;
   transition: max-height 0.5s ease-in-out;
 }
 
@@ -528,7 +528,7 @@ img {
   background-color: rgba(255, 255, 255, 0.1); /* Light background for each item */
   border-radius: 10px;
   padding: 5px;
-  margin:25px 0;
+  margin: 25px 0;
   max-width: 150px;
   text-align: center;
   cursor: pointer;
