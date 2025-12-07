@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald&family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald&family=Poppins&family=Creepster&display=swap');
 
 :root {
   --accent: goldenrod;
@@ -32,6 +32,7 @@ img {
   background-size: cover;   /* Ensures the image covers the full container */
   background-position: center center;  /* Centers the background image */
   background-repeat: no-repeat; /* Prevents the background image from repeating */
+  background-attachment: fixed;
   position: relative;
   padding-bottom: 80px;
   transition: background-image 1s ease-in-out, background-size 1s ease-in-out;
@@ -80,6 +81,10 @@ img {
   font-weight: bold;
   text-align: center;
   display: inline;
+
+  &:hover {
+    text-shadow: 0 0 4px goldenrod;
+  }
 }
 
 .movielogo p span {
@@ -492,7 +497,7 @@ img {
 }
 
 .popular-movies-container h3 {
-  color: #fff;
+  color: #FFF;
   text-align: center;
 }
 
@@ -500,6 +505,7 @@ img {
   display: flex;
   justify-content: center;
   gap: 35px;
+  padding-bottom: 6px;
   overflow: hidden;
   max-height: 300px;
   transition: max-height 0.35s ease;
@@ -508,11 +514,15 @@ img {
 .popular-movies-item {
   background-color: rgba(255, 255, 255, 0.1); /* Light background for each item */
   border-radius: 10px;
-  padding: 10px;
+  padding: 5px;
   margin-top: 15px;
-  max-width: 150px;
+  max-width: 160px;
   text-align: center;
   cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 4px #FFF;
+  }
 }
 
 .popular-movies-item img {
@@ -526,11 +536,11 @@ img {
   font-size: 1rem;
 }
 
-#toggle-icon {
+.toggle-icon {
   transition: transform 0.35s ease;
 }
 
-#toggle-icon.rotated {
+.toggle-icon.rotated {
   transform: rotate(180deg);
 }
 
@@ -544,7 +554,42 @@ img {
   user-select: none;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.popular-movies-container .horror-font {
+  font-family: 'Creepster';
+  font-weight: normal;
+}
+
+/* Spinner inside the button */
+.random-movie-btn.loading {
+  position: relative;
+  color: transparent !important;   /* hides text without shifting layout */
+}
+
+.random-movie-btn.loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+/* Spinner animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media(max-width: 450px) {
