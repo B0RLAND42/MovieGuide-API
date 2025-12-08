@@ -521,7 +521,7 @@ img {
   gap: 35px;
   overflow: hidden;
   max-height: 1300px;
-  transition: max-height 0.5s ease-in-out;
+  transition: max-height 0.3s ease-in-out;
 }
 
 .popular-movies-item {
@@ -538,8 +538,8 @@ img {
 
   &:hover {
     transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.55);
-  border-color: rgba(255,255,255,0.2);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.55);
+    border-color: rgba(255,255,255,0.2);
   }
 }
 
