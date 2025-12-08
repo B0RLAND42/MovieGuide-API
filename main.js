@@ -14,7 +14,7 @@ const infoLayout = document.getElementById("info-layout");
 // UNIVERSAL COLLAPSIBLE SECTION HANDLER
 // -----------------------------
 
-document.querySelectorAll(".popular-movies-container").forEach(container => {
+document.querySelectorAll(".popular-movies-container").forEach((container) => {
   const title = container.querySelector(".collapsible-title");
   const list = container.querySelector(".popular-movies-list");
   const icon = title.querySelector("i");
@@ -29,7 +29,7 @@ document.querySelectorAll(".popular-movies-container").forEach(container => {
 // Hide all collapsible sections
 // -----------------------------
 function hidePopularMovies() {
-  document.querySelectorAll(".popular-movies-container").forEach(sec => {
+  document.querySelectorAll(".popular-movies-container").forEach((sec) => {
     sec.style.display = "none";
   });
 }
@@ -151,7 +151,8 @@ async function fetchRandomMovie() {
     const data = await res.json();
 
     if (data.results && data.results.length > 0) {
-      const movie = data.results[Math.floor(Math.random() * data.results.length)];
+      const movie =
+        data.results[Math.floor(Math.random() * data.results.length)];
       return movie.id; // return ID instead of calling loadMovieDetails
     } else {
       return await fetchRandomMovie(); // try again recursively
@@ -192,8 +193,10 @@ async function fetchNowPlaying() {
     const data = await res.json();
 
     // Filter by minimum vote average AND release year
-    const filtered = data.results.filter(movie => {
-      const releaseYear = movie.release_date ? parseInt(movie.release_date.slice(0, 4)) : 0;
+    const filtered = data.results.filter((movie) => {
+      const releaseYear = movie.release_date
+        ? parseInt(movie.release_date.slice(0, 4))
+        : 0;
       return movie.vote_average >= minRating && releaseYear === currentYear;
     });
 
@@ -201,7 +204,6 @@ async function fetchNowPlaying() {
   } catch (err) {
     console.error("Error fetching now playing movies:", err);
   }
-
 }
 
 // -----------------------------
@@ -215,14 +217,14 @@ async function fetchBest2025() {
     &sort_by=popularity.desc
     &vote_count.gte=500
     &vote_average.gte=7
-  `.replace(/\s+/g, '');
+  `.replace(/\s+/g, "");
 
   try {
     const res = await fetch(url);
     const data = await res.json();
 
     // Additional filter: vote_average >= 5
-    const filtered = data.results.filter(movie => movie.vote_average >= 6);
+    const filtered = data.results.filter((movie) => movie.vote_average >= 6);
 
     // Sort filtered movies by popularity (should already be sorted)
     const topMovies = filtered
@@ -246,7 +248,7 @@ async function fetchPopular80sMovies() {
     &primary_release_date.gte=1980-01-01
     &primary_release_date.lte=1989-12-31
     &vote_count.gte=700
-  `.replace(/\s+/g, '');
+  `.replace(/\s+/g, "");
 
   try {
     const res = await fetch(url);
@@ -272,21 +274,21 @@ async function fetchBest90sMovies() {
     &vote_average.gte=7.0                                
     &region=US                                           
     &sort_by=popularity.desc                            
-  `.replace(/\s+/g, '');
+  `.replace(/\s+/g, "");
 
   try {
     const res = await fetch(url);
     const data = await res.json();
 
     // Add weighted ranking to improve accuracy
-    const weighted = data.results.map(movie => {
+    const weighted = data.results.map((movie) => {
       const rating = movie.vote_average || 0;
       const votes = movie.vote_count || 0;
-      const pop   = movie.popularity || 0;
+      const pop = movie.popularity || 0;
 
       return {
         ...movie,
-        weightedScore: (rating * 2) + (votes / 500) + (pop / 20)
+        weightedScore: rating * 2 + votes / 500 + pop / 20,
       };
     });
 
@@ -315,20 +317,20 @@ async function fetchClassicComedyHits() {
     &with_original_language=en
     &region=US
     &sort_by=popularity.desc
-  `.replace(/\s+/g, '');
+  `.replace(/\s+/g, "");
 
   try {
     const res = await fetch(url);
     const data = await res.json();
 
-    const weighted = data.results.map(m => {
+    const weighted = data.results.map((m) => {
       const rating = m.vote_average || 0;
-      const votes  = m.vote_count || 0;
-      const pop    = m.popularity || 0;
+      const votes = m.vote_count || 0;
+      const pop = m.popularity || 0;
 
       return {
         ...m,
-        weightedScore: (rating * 2) + (votes / 600) + (pop / 20)
+        weightedScore: rating * 2 + votes / 600 + pop / 20,
       };
     });
 
@@ -355,24 +357,22 @@ async function fetch80sHorrorClassics() {
     &vote_count.gte=1000
     &sort_by=vote_average.desc
     &sort_by=popularity.desc
-  `.replace(/\s+/g, '');
+  `.replace(/\s+/g, "");
 
   try {
     const res = await fetch(url);
     let data = await res.json();
 
     // Keep movies where Horror is the **first** genre listed (ensures true horror)
-    const filtered = data.results.filter(m =>
-      m.genre_ids && m.genre_ids[0] === 27
+    const filtered = data.results.filter(
+      (m) => m.genre_ids && m.genre_ids[0] === 27
     );
 
     // Weighted ranking: helps push true classics higher
-    const weighted = filtered.map(m => ({
+    const weighted = filtered.map((m) => ({
       ...m,
       weightedScore:
-        (m.vote_average * 2) +
-        (m.vote_count / 300) +
-        (m.popularity / 20)
+        m.vote_average * 2 + m.vote_count / 300 + m.popularity / 20,
     }));
 
     const top = weighted
@@ -380,7 +380,6 @@ async function fetch80sHorrorClassics() {
       .slice(0, 18);
 
     displaySectionMovies("horror-80s-list", top);
-
   } catch (err) {
     console.error("Error fetching 80s horror classics:", err);
   }
@@ -396,7 +395,7 @@ async function fetchMusicDocs() {
     &language=en-US
     &sort_by=popularity.desc
     &vote_count.gte=200
-  `.replace(/\s+/g, '');
+  `.replace(/\s+/g, "");
 
   try {
     const res = await fetch(url);
@@ -422,21 +421,21 @@ async function fetchAdventureMovies() {
     &vote_count.gte=2000
     &vote_average.gte=7
     &sort_by=popularity.desc
-  `.replace(/\s+/g, '');
+  `.replace(/\s+/g, "");
 
   try {
     const res = await fetch(url);
     const data = await res.json();
 
     // Weighted score for better ranking
-    const weighted = data.results.map(m => {
+    const weighted = data.results.map((m) => {
       const rating = m.vote_average || 0;
-      const votes  = m.vote_count || 0;
-      const pop    = m.popularity || 0;
+      const votes = m.vote_count || 0;
+      const pop = m.popularity || 0;
 
       return {
         ...m,
-        weightedScore: (rating * 2) + (votes / 500) + (pop / 25)
+        weightedScore: rating * 2 + votes / 500 + pop / 25,
       };
     });
 
@@ -450,8 +449,6 @@ async function fetchAdventureMovies() {
   }
 }
 
-
-
 // -----------------------------
 // RENDER ANY SECTION LIST
 // -----------------------------
@@ -461,7 +458,7 @@ function displaySectionMovies(sectionId, items) {
 
   section.innerHTML = "";
 
-  items.forEach(item => {
+  items.forEach((item) => {
     const poster = item.poster_path
       ? `${TMDB_IMAGE}${item.poster_path}`
       : "./images/clapperboard.png";
@@ -490,26 +487,26 @@ function displaySectionMovies(sectionId, items) {
 // MOVIE DETAILS (unchanged)
 // -----------------------------
 async function loadMovieDetails(movieId) {
-   try {
-     hidePopularMovies();
-     const tmdbRes = await fetch(
-       `https://api.themoviedb.org/3/movie/${movieId}?api_key=${TMDB_KEY}&append_to_response=videos,credits`
-     );
-     const tmdbData = await tmdbRes.json();
+  try {
+    hidePopularMovies();
+    const tmdbRes = await fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${TMDB_KEY}&append_to_response=videos,credits`
+    );
+    const tmdbData = await tmdbRes.json();
 
-     updateBackgroundImage(tmdbData.backdrop_path || tmdbData.poster_path);
+    updateBackgroundImage(tmdbData.backdrop_path || tmdbData.poster_path);
 
-     const title = encodeURIComponent(tmdbData.title);
-     const year = tmdbData.release_date?.slice(0, 4) || "";
-     const omdbRes = await fetch(
-       `https://www.omdbapi.com/?t=${title}&y=${year}&apikey=${OMDB_KEY}`
-     );
-     const omdbData = await omdbRes.json();
+    const title = encodeURIComponent(tmdbData.title);
+    const year = tmdbData.release_date?.slice(0, 4) || "";
+    const omdbRes = await fetch(
+      `https://www.omdbapi.com/?t=${title}&y=${year}&apikey=${OMDB_KEY}`
+    );
+    const omdbData = await omdbRes.json();
 
-     displayMovieDetails(tmdbData, omdbData);
-   } catch (err) {
-     console.error(err);
-   }
+    displayMovieDetails(tmdbData, omdbData);
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 // -----------------------------
@@ -517,8 +514,9 @@ async function loadMovieDetails(movieId) {
 // -----------------------------
 function updateBackgroundImage(path) {
   if (!path) {
-    document.querySelector(".main").style.backgroundImage =
-      `url('/images/clapper.webp')`;
+    document.querySelector(
+      ".main"
+    ).style.backgroundImage = `url('/images/clapper.webp')`;
     return;
   }
 
@@ -540,22 +538,29 @@ function displayMovieDetails(tmdb, omdb) {
 
   const year = tmdb.release_date?.slice(0, 4) || "N/A";
   const runtime = tmdb.runtime ? `${tmdb.runtime} min` : "";
-  const genres = tmdb.genres?.map(g => g.name).join(", ");
+  const genres = tmdb.genres?.map((g) => g.name).join(", ");
+  const director =
+    tmdb.credits?.crew?.find((person) => person.job === "Director")?.name ||
+    "Unknown";
   const scoreValue = tmdb.vote_average?.toFixed(1) || "N/A";
-  let scoreClass = scoreValue >= 7 ? "high" : scoreValue >= 5 ? "medium" : "low";
+  let scoreClass =
+    scoreValue >= 7 ? "high" : scoreValue >= 5 ? "medium" : "low";
 
   const tagline = tmdb.tagline ? `<em>"${tmdb.tagline}"</em>` : "";
 
   const castList =
     tmdb.credits?.cast
       ?.slice(0, 5)
-      .map(c => `<li>${c.name} <span class="cast-role">as ${c.character}</span></li>`)
+      .map(
+        (c) =>
+          `<li>${c.name} <span class="cast-role">as ${c.character}</span></li>`
+      )
       .join("") || "";
 
   const rated = omdb.Rated || "N/A";
 
   const trailer = tmdb.videos?.results?.find(
-    v => v.type === "Trailer" && v.site === "YouTube"
+    (v) => v.type === "Trailer" && v.site === "YouTube"
   );
 
   infoLayout.innerHTML = `
@@ -576,6 +581,7 @@ function displayMovieDetails(tmdb, omdb) {
         <li class="score ${scoreClass}">Score: ${scoreValue}</li>
       </ul>
 
+      <p class="director"><strong>Director |</strong> ${director}</p>
       ${tagline ? `<p class="tagline">${tagline}</p>` : ""}
       <p class="plot">${tmdb.overview}</p>
 
@@ -622,23 +628,25 @@ function displayMovieDetails(tmdb, omdb) {
 // -----------------------------
 // RANDOM MOVIE BUTTON
 // -----------------------------
-document.getElementById("random-movie-btn").addEventListener("click", async () => {
-  const btn = document.getElementById("random-movie-btn");
+document
+  .getElementById("random-movie-btn")
+  .addEventListener("click", async () => {
+    const btn = document.getElementById("random-movie-btn");
 
-  // Show spinner
-  btn.classList.add("loading");
+    // Show spinner
+    btn.classList.add("loading");
 
-  hidePopularMovies();
+    hidePopularMovies();
 
-  // Get a random movie ID
-  const movieId = await fetchRandomMovie();
+    // Get a random movie ID
+    const movieId = await fetchRandomMovie();
 
-  // Load details
-  await loadMovieDetails(movieId); // waits until infoLayout is fully updated
+    // Load details
+    await loadMovieDetails(movieId); // waits until infoLayout is fully updated
 
-  // Hide spinner
-  btn.classList.remove("loading");
-});
+    // Hide spinner
+    btn.classList.remove("loading");
+  });
 
 // -----------------------------
 // CLOSE SEARCH LIST WHEN CLICKING OUTSIDE

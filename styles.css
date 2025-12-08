@@ -260,7 +260,8 @@ img {
 
 .movie-info .released,
 .movie-info .genre,
-.movie-info .year {
+.movie-info .year,
+.movie-info .director {
   font-size: 0.8rem;
   opacity: 0.9;
 }
