@@ -172,7 +172,7 @@ async function fetchTrendingHorrorMovies() {
     const data = await res.json();
 
     // Display top 5 trending horror movies
-    displaySectionMovies("popular-movies-list", data.results.slice(0, 6));
+    displaySectionMovies("popular-movies-list", data.results.slice(0, 16));
   } catch (err) {
     console.error("Error fetching trending horror movies:", err);
   }
@@ -192,7 +192,7 @@ async function fetchNowPlaying() {
     // Filter by minimum vote average
     const filtered = data.results.filter(movie => movie.vote_average >= minRating);
 
-    displaySectionMovies("coming-soon-list", filtered.slice(0, 6));
+    displaySectionMovies("coming-soon-list", filtered.slice(0, 16));
   } catch (err) {
     console.error("Error fetching now playing movies:", err);
   }
@@ -220,7 +220,7 @@ async function fetchBest2025() {
     // Sort filtered movies by popularity (should already be sorted)
     const topMovies = filtered
       .sort((a, b) => b.popularity - a.popularity)
-      .slice(0, 6);
+      .slice(0, 16);
 
     displaySectionMovies("best-2025-list", topMovies);
   } catch (err) {
@@ -246,7 +246,7 @@ async function fetchPopular80sMovies() {
     const data = await res.json();
 
     // Pick top 5 for display
-    const topMovies = data.results.slice(0, 6);
+    const topMovies = data.results.slice(0, 16);
 
     displaySectionMovies("top-80s-list", topMovies);
   } catch (err) {
@@ -286,7 +286,7 @@ async function fetchBest90sMovies() {
     // Sort by weighted score
     const topMovies = weighted
       .sort((a, b) => b.weightedScore - a.weightedScore)
-      .slice(0, 6); // top 6 movies
+      .slice(0, 16); // top 6 movies
 
     displaySectionMovies("best-comedy-list", topMovies);
   } catch (err) {
@@ -327,7 +327,7 @@ async function fetchClassicComedyHits() {
 
     const top18 = weighted
       .sort((a, b) => b.weightedScore - a.weightedScore)
-      .slice(0, 6);
+      .slice(0, 16);
 
     displaySectionMovies("classic-comedy-list", top18);
   } catch (err) {
@@ -369,7 +369,7 @@ async function fetch80sHorrorClassics() {
 
     const top = weighted
       .sort((a, b) => b.weightedScore - a.weightedScore)
-      .slice(0, 6);
+      .slice(0, 16);
 
     displaySectionMovies("horror-80s-list", top);
 
