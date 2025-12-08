@@ -488,7 +488,7 @@ img {
 
 .popular-movies-container {
   position: relative;
-  padding: 25px 30px;
+  padding: 25px 130px;
   background: rgba(255,255,255,0.05);
   border-radius: 18px;
   backdrop-filter: blur(12px);
@@ -665,6 +665,7 @@ img {
 
   .popular-movies-container {
     backdrop-filter: none; /* OR blur(1px) */
+    padding: 25px 30px;
   }
 
   .tmdb-attrib p {

@@ -172,7 +172,7 @@ async function fetchTrendingHorrorMovies() {
     const data = await res.json();
 
     // Display top 5 trending horror movies
-    displaySectionMovies("popular-movies-list", data.results.slice(0, 16));
+    displaySectionMovies("popular-movies-list", data.results.slice(0, 18));
   } catch (err) {
     console.error("Error fetching trending horror movies:", err);
   }
@@ -183,19 +183,25 @@ async function fetchTrendingHorrorMovies() {
 // -----------------------------
 async function fetchNowPlaying() {
   const minRating = 5.5; // optional: filter out poorly rated movies
+  const currentYear = new Date().getFullYear();
+
   const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${TMDB_KEY}&language=en-US&region=US&page=1`;
 
   try {
     const res = await fetch(url);
     const data = await res.json();
 
-    // Filter by minimum vote average
-    const filtered = data.results.filter(movie => movie.vote_average >= minRating);
+    // Filter by minimum vote average AND release year
+    const filtered = data.results.filter(movie => {
+      const releaseYear = movie.release_date ? parseInt(movie.release_date.slice(0, 4)) : 0;
+      return movie.vote_average >= minRating && releaseYear === currentYear;
+    });
 
-    displaySectionMovies("coming-soon-list", filtered.slice(0, 16));
+    displaySectionMovies("coming-soon-list", filtered.slice(0, 18));
   } catch (err) {
     console.error("Error fetching now playing movies:", err);
   }
+
 }
 
 // -----------------------------
@@ -207,7 +213,8 @@ async function fetchBest2025() {
     &language=en-US
     &primary_release_year=2025
     &sort_by=popularity.desc
-    &vote_count.gte=75
+    &vote_count.gte=500
+    &vote_average.gte=7
   `.replace(/\s+/g, '');
 
   try {
@@ -220,7 +227,7 @@ async function fetchBest2025() {
     // Sort filtered movies by popularity (should already be sorted)
     const topMovies = filtered
       .sort((a, b) => b.popularity - a.popularity)
-      .slice(0, 16);
+      .slice(0, 18);
 
     displaySectionMovies("best-2025-list", topMovies);
   } catch (err) {
@@ -246,7 +253,7 @@ async function fetchPopular80sMovies() {
     const data = await res.json();
 
     // Pick top 5 for display
-    const topMovies = data.results.slice(0, 16);
+    const topMovies = data.results.slice(0, 18);
 
     displaySectionMovies("top-80s-list", topMovies);
   } catch (err) {
@@ -286,7 +293,7 @@ async function fetchBest90sMovies() {
     // Sort by weighted score
     const topMovies = weighted
       .sort((a, b) => b.weightedScore - a.weightedScore)
-      .slice(0, 16); // top 6 movies
+      .slice(0, 18); // top 6 movies
 
     displaySectionMovies("best-comedy-list", topMovies);
   } catch (err) {
@@ -301,13 +308,13 @@ async function fetchClassicComedyHits() {
     &language=en-US
     &with_genres=35
     &without_genres=28,12,878,14,27
-    &primary_release_date.gte=1980-01-01
+    &primary_release_date.gte=1990-01-01
     &primary_release_date.lte=2000-12-31
-    &vote_count.gte=2000
-    &vote_average.gte=7
+    &vote_count.gte=5000
+    &vote_average.gte=6
     &with_original_language=en
     &region=US
-    &sort_by=popularity.asc
+    &sort_by=popularity.desc
   `.replace(/\s+/g, '');
 
   try {
@@ -327,7 +334,7 @@ async function fetchClassicComedyHits() {
 
     const top18 = weighted
       .sort((a, b) => b.weightedScore - a.weightedScore)
-      .slice(0, 16);
+      .slice(0, 18);
 
     displaySectionMovies("classic-comedy-list", top18);
   } catch (err) {
@@ -345,8 +352,9 @@ async function fetch80sHorrorClassics() {
     &with_original_language=en
     &primary_release_date.gte=1980-01-01
     &primary_release_date.lte=1989-12-31
-    &vote_count.gte=300
+    &vote_count.gte=1000
     &sort_by=vote_average.desc
+    &sort_by=popularity.desc
   `.replace(/\s+/g, '');
 
   try {
@@ -369,7 +377,7 @@ async function fetch80sHorrorClassics() {
 
     const top = weighted
       .sort((a, b) => b.weightedScore - a.weightedScore)
-      .slice(0, 16);
+      .slice(0, 18);
 
     displaySectionMovies("horror-80s-list", top);
 
@@ -377,6 +385,72 @@ async function fetch80sHorrorClassics() {
     console.error("Error fetching 80s horror classics:", err);
   }
 }
+
+// -----------------------------
+// FETCH MUSIC DOCUMENTARIES
+// -----------------------------
+async function fetchMusicDocs() {
+  const url = `
+    https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_KEY}
+    &with_genres=99,10402
+    &language=en-US
+    &sort_by=popularity.desc
+    &vote_count.gte=200
+  `.replace(/\s+/g, '');
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+
+    displaySectionMovies("music-docs-list", data.results.slice(0, 18));
+  } catch (err) {
+    console.error("Error fetching Music Documentaries:", err);
+  }
+}
+
+// -----------------------------
+// FETCH BEST ADVENTURE MOVIES (1960-2025)
+// -----------------------------
+async function fetchAdventureMovies() {
+  const url = `
+    https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_KEY}
+    &with_genres=12
+    &primary_release_date.gte=1960-01-01
+    &primary_release_date.lte=2000-12-31
+    &language=en-US
+    &region=US
+    &vote_count.gte=2000
+    &vote_average.gte=7
+    &sort_by=popularity.desc
+  `.replace(/\s+/g, '');
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+
+    // Weighted score for better ranking
+    const weighted = data.results.map(m => {
+      const rating = m.vote_average || 0;
+      const votes  = m.vote_count || 0;
+      const pop    = m.popularity || 0;
+
+      return {
+        ...m,
+        weightedScore: (rating * 2) + (votes / 500) + (pop / 25)
+      };
+    });
+
+    const topMovies = weighted
+      .sort((a, b) => b.weightedScore - a.weightedScore)
+      .slice(0, 18);
+
+    displaySectionMovies("adventure-movies-list", topMovies);
+  } catch (err) {
+    console.error("Error fetching Adventure Movies:", err);
+  }
+}
+
+
 
 // -----------------------------
 // RENDER ANY SECTION LIST
@@ -586,4 +660,6 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchBest90sMovies();
   fetchClassicComedyHits();
   fetch80sHorrorClassics();
+  fetchMusicDocs();
+  fetchAdventureMovies();
 });
