@@ -662,6 +662,7 @@ img {
     display: flex;           /* arrange items in a row */
     flex-wrap: nowrap;       /* prevent wrapping */
     overflow-x: auto;        /* enable horizontal scroll */
+    scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
     padding-bottom: 10px;    /* some spacing for scroll */
     justify-content: flex-start; /* change from center to start */
@@ -669,6 +670,10 @@ img {
 
   .popular-movies-list::-webkit-scrollbar {
     display: none;           /* hide scrollbar in WebKit browsers */
+  }
+
+  .tmdb-attrib {
+    backdrop-filter: none; /* OR blur(1px) */
   }
 
   .tmdb-attrib p {
