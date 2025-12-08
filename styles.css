@@ -32,7 +32,7 @@ img {
   background-size: cover;   /* Ensures the image covers the full container */
   background-position: center center;  /* Centers the background image */
   background-repeat: no-repeat; /* Prevents the background image from repeating */
-  
+  background-attachment: fixed;
   position: relative;
   padding-bottom: 80px;
   transition: background-image 1s ease-in-out, background-size 1s ease-in-out;
@@ -642,16 +642,6 @@ img {
 }
 
 @media(max-width: 450px) {
-  .main {
-    background-attachment: scroll !important;
-    background-position: center top;
-  }
-
-  .main,
-  .main:after {
-    will-change: transform;
-    transform: translateZ(0);
-  }
 
   .popular-movies-item {
     flex: 0 0 130px;          /* make items stay their size */
