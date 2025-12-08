@@ -769,6 +769,10 @@ img {
   .movie-poster img {
     max-width: 96%;
   }
+
+  .movie-info .movie-title {
+    margin-top: 14px;
+  }
 }
 
 @media(min-width: 800px) {
