@@ -672,7 +672,7 @@ img {
     display: none;           /* hide scrollbar in WebKit browsers */
   }
 
-  .tmdb-attrib {
+  .popular-movies-container {
     backdrop-filter: none; /* OR blur(1px) */
   }
 
