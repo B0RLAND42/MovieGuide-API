@@ -142,7 +142,7 @@ img {
   padding-left: 45px;
   font-size: 1rem;
   border-radius: 12px;
-  border: 1px solid rgba(218, 165, 32, 0.45); /* subtle gold border */
+  border: 1px solid rgba(255, 255, 255, 0.45); /* subtle gold border */
   outline: none;
   color: var(--gray);
   width: 350px;
@@ -168,11 +168,10 @@ img {
 
 .search-bar .form-control:focus {
   background: rgba(255, 255, 255, 0.15);
-  border: 1px solid var(--accent);
-  box-shadow: 
-    0 0 8px rgba(218, 165, 32, 0.7),
-    0 0 20px rgba(218, 165, 32, 0.4),
-    0 4px 14px rgba(0,0,0,0.4);
+  border: 1px solid #FFF;
+  box-shadow:
+    0 0 4px rgba(255,255,255,0.9),
+    0 0 8px rgba(200,200,255,0.6);
 }
 
 /* Active/in-use typing feedback (subtle) */
@@ -190,7 +189,7 @@ img {
   content: "\f002"; /* Unicode for magnifying glass in Font Awesome */
   font-family: "Font Awesome 6 Free"; 
   font-weight: 900;
-  color: var(--accent);
+  color: #FFF;
   position: absolute;
   left: 18px;
   top: 50%;
