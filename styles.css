@@ -715,10 +715,8 @@ img {
 }
 
 @media(max-width: 450px) {
-  body {
-    background-attachment: scroll !important;
-    background-size: cover;
-    background-position: center;
+  .main {
+    background-attachment: scroll;
   }
 
   .popular-movies-item {
