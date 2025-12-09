@@ -715,6 +715,11 @@ img {
 }
 
 @media(max-width: 450px) {
+  body {
+    background-attachment: scroll !important;
+    background-size: cover;
+    background-position: center;
+  }
 
   .popular-movies-item {
     flex: 0 0 130px;          /* make items stay their size */
