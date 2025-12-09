@@ -139,12 +139,66 @@ img {
 
 .search-bar .form-control {
   padding: 0.6rem 1.4rem;
+  padding-left: 45px;
   font-size: 1rem;
-  border: none;
-  border-radius: 3px; 
+  border-radius: 12px;
+  border: 1px solid rgba(218, 165, 32, 0.45); /* subtle gold border */
   outline: none;
   color: var(--gray);
   width: 350px;
+
+  /* Glass morphism base */
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+
+  /* Text + placeholder */
+  color: #fff;
+  letter-spacing: 0.3px;
+  transition: 
+    background .2s ease,
+    box-shadow .2s ease,
+    border .2s ease;
+}
+
+.search-bar .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 300;
+}
+
+.search-bar .form-control:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--accent);
+  box-shadow: 
+    0 0 8px rgba(218, 165, 32, 0.7),
+    0 0 20px rgba(218, 165, 32, 0.4),
+    0 4px 14px rgba(0,0,0,0.4);
+}
+
+/* Active/in-use typing feedback (subtle) */
+.search-bar .form-control:active {
+  background: rgba(255,255,255,0.18);
+}
+
+/* Wrap becomes position-relative to anchor the icon */
+.search-bar {
+  position: relative;
+}
+
+/* SEARCH ICON inside the input */
+.search-bar::before {
+  content: "\f002"; /* Unicode for magnifying glass in Font Awesome */
+  font-family: "Font Awesome 6 Free"; 
+  font-weight: 900;
+  color: var(--accent);
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.05rem;
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 12;
 }
 
 .search-bar-list {
@@ -164,6 +218,14 @@ img {
   color: #FFFFFF;
   cursor: pointer;
   transition: background-color 200ms ease;
+}
+
+.search-bar-list .no-results {
+  color: #333;
+  text-align: center;
+  padding: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  width: calc(350px - 8px);
 }
 
 .search-bar-list .search-bar-thumb:hover {
@@ -747,23 +809,38 @@ img {
   .movielogo p{
     font-size: 2.4rem;
   }
+
+  .search-bar::before {
+    left: 30px;
+  }
+
   .search-bar .form-control {
     width: 90%;
     margin: 0 auto;
-    padding: 0.5rem 1rem;
+    padding: 0.7rem 1rem;
+    padding-left: 50px;
+    border-radius: 10px;
   }
+
   .search-bar h3 {
     font-size: 1.3rem;
     margin: 2px;
   }
+
   .search-bar-list {
     width: 90%;
     right: 50%;
     transform: translateX(50%);
   }
+
+  .search-bar-list .no-results {
+    width: auto;
+  }
+
   .search-bar-list .search-bar-thumb {
     width: 100%;
   }
+  
   .movie-data {
     flex-direction: column;
   }
